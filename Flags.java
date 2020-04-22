@@ -9,16 +9,16 @@ import java.io.*;
 import java.awt.Color;
 
 /** 
- * Draws different flags
- *
+ * Draws various flags on the graphics pane
+ * 
  * @author Heather Harper
- * @version 21/04/2020
+ * @version 22/04/2020
  */
 public class Flags{
-    private final double X = 200.0;
-    private final double Y = 200.0; // placement of flag
+    private final double X = 20.0;
+    private final double Y = 20.0; // placement of flag
     private final double WIDTH = 120.0; // width of flag
-    private final double PROPORTION = 2/3; // typical ratio of flag height to width
+    private final double PROPORTION = 2.0/3.0; // typical ratio of flag height to width
     private final double HEIGHT = WIDTH * PROPORTION;
     
     /**
@@ -29,6 +29,7 @@ public class Flags{
         UI.addButton("Quit", UI::quit);    // Comment out to checkstyle
         // buttons for different flags
         UI.addButton("Vertical Stripes", this::threeStripesVertical);
+        UI.addButton("Horizontal Stripes", this::threeStripesHorizontal);
     }
 
     /**
@@ -69,21 +70,41 @@ public class Flags{
     }
     
     /**
-     * Draw three stripe flag with vertical stripes, called by button
+     * Draw a three stripe flag with vertical stripes, called by button
      */
     private void threeStripesVertical(){
-        // clear graphics pane
-       
-        // get colours
-        doColour("rectangle");
-        UI.fillRect(100.0, 100.0, 30.0, 70.0);
-        // 
-        
+        UI.clearGraphics();         // clear graphics pane
+        UI.setLineWidth(1);
+        double stripeWidth = WIDTH / 3.0;
+                
+        //draw stripes
+        doColour("left stripe");
+        UI.fillRect(X, Y, stripeWidth, HEIGHT);
+        doColour("middle stripe");
+        UI.fillRect(X + stripeWidth, Y, stripeWidth, HEIGHT);
+        doColour("right stripe");
+        UI.fillRect(X + 2 * stripeWidth, Y, stripeWidth, HEIGHT);
     }
 
     /**
+     * Draw a three stripe flag with horizontal stripes, called by button
+     */
+    private void threeStripesHorizontal(){
+        UI.clearGraphics();         // clear graphics pane
+        UI.setLineWidth(1);
+        double stripeHeight = HEIGHT / 3.0;
+        
+        //draw stripes
+        doColour("top stripe");
+        UI.fillRect(X, Y, WIDTH, stripeHeight);
+        doColour("middle stripe");
+        UI.fillRect(X, Y + stripeHeight, WIDTH, stripeHeight);
+        doColour("bottom stripe");
+        UI.fillRect(X, Y + 2 * stripeHeight, WIDTH, stripeHeight);
+    }
+    
+    /**
      * Main routine
-     *
      */
     public static void main(String[] args){
         Flags obj = new Flags();
